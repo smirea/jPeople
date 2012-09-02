@@ -17,8 +17,8 @@
     'Index of special symbols' =>
     array(
       array( 'germany eecs', '<b>space( )</b> - means <b>AND</b> (everyone who is german <b>and</b> studies eecs' ),
-      array( 'room:mc-237', '<b>semicolon(:)</b> - designates a strict query'),
-      array( 'country:germany,finland', '<b>comma(,)</b> in a <i>Strict query</i> - means <b>OR</b> (everyone from Germany <b>or</b> Finland)' ),
+      array( 'lname:john', '<b>semicolon(:)</b> - designates a strict query (i.e. will only search for people whose last name is "john")'),
+      array( 'country:japan,finland', '<b>comma(,)</b> in a <i>Strict query</i> - means <b>OR</b> (everyone from Germany <b>or</b> Finland)' ),
       array( '~alex romania', '<b>tilda(~)</b> <u>at the beginning of a word</u> - means <b>NOT</b> (all romanians who are not alex' ),
       //array( 'course:"advanced computer science"', '<b>double quotes(")</b> - take everything in between together (everyone who is taking that course this semester). Note, without the quotes it would have been: <i>everyone who takes the course advanced and is computer and science</i> :) )' )
     ),
