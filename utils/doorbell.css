@@ -1,0 +1,43 @@
+@media all, print{
+  * {
+    font-family : verdana, arial;
+  }
+  .floorSign{
+    background  : #aaa;
+    font-size   : 10pt;
+    margin-bottom : 100px;
+  }
+  .floorSign th{
+    background      : #346989;
+    padding         : 5px;
+    font-size       : 20px;
+    font-weight     : bold;
+    text-align      : center;
+    text-transform  : uppercase;
+    color           : #fff;
+  }
+  .floorSign td{
+    background  : #fff;
+    padding     : 1px 5px;
+  }
+  .name{
+    /* background  : lightblue!important; */
+    max-width   : 200px;
+    font-weight : bold;
+    font-size   : 10pt;
+  }
+  .photo{
+    background  : #ccc!important;
+    text-align  : center;
+    padding     : 0!important 5px;
+    /* padding     : 0!important; */
+  }
+  .photo img{
+    max-height  : 105px;
+    max-width   : 90px;
+  }
+  .delimiter td{
+    background  : orange;
+    line-height : 3px;
+  }
+}

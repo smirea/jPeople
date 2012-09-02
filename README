@@ -1,0 +1,25 @@
+
+/------------------------------------------------------------------------------\
+|                   +-----------------------------------+                      |
+|                   |                                   |                      |
+|                   |          jPeople v2.0             |                      |
+|                   |            by Stefan Mirea        |                      |
+|                   |                                   |                      |
+|                   +-----------------------------------+                      |
+|                                                                              |
+|   + Requirments                                                              |
+|     - php-net-ldap                                                           |
+|     - a mail system - preferably postfix                                     |
+|                                                                              |
+|   + HOW TO INSTALL                                                           |
+|     - copy "config.TEMPLATE.php" to "config.php" and set your info           |
+|     - edit .git/info/exclude and add: "config.php" and "jP-*"                |
+|     - run "utils/getData.php"                                                |
+|     - [optional] run "utils/getFlags.php"                                    |
+|     - [optional] run "utils/getImages.php"                                   |
+|     - TODO: FINISH ME!                                                       |
+|                                                                              |
+|                                                                              |
+\------------------------------------------------------------------------------/
+|                        Copyright 2011 Stefan Mirea                           |
+\------------------------------------------------------------------------------/
