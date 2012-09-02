@@ -21,6 +21,10 @@
       array( 'country:germany,finland', '<b>comma(,)</b> in a <i>Strict query</i> - means <b>OR</b> (everyone from Germany <b>or</b> Finland)' ),
       array( '~alex romania', '<b>tilda(~)</b> <u>at the beginning of a word</u> - means <b>NOT</b> (all romanians who are not alex' ),
       //array( 'course:"advanced computer science"', '<b>double quotes(")</b> - take everything in between together (everyone who is taking that course this semester). Note, without the quotes it would have been: <i>everyone who takes the course advanced and is computer and science</i> :) )' )
+    ),
+    'Common tips' =>
+    array(
+      array( 'major:cs, major:~eecs, major:~ics', 'some majors\' acronym is contained in other. Exclude the ones that you don\'t want')
     )
   );
 
