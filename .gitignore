@@ -1,1 +1,2 @@
-utils/images/*
+/utils/images/*
+/config.php
