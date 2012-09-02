@@ -24,7 +24,7 @@
     ),
     'Common tips' =>
     array(
-      array( 'major:cs major:~eecs major:~ics', 'some majors\' acronym is contained in other. Exclude the ones that you don\'t want')
+      array( 'major:cs major:~eecs major:~ics', 'some majors\' acronym is contained in others (e.g. CS and EECS,ICS) . Exclude the ones that you don\'t want')
     )
   );
 
