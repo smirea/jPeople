@@ -1,5 +1,5 @@
 <?php
-  
+
   /**
    * How the parsing works:
    * - a b            => query LIKE '%a%' AND query LIKE '%b%'
@@ -11,19 +11,19 @@
    * - x a:b,c,d y    -> (a LIKE '%b%' OR a LIKE '%c%' OR a LIKE '%d%') AND (query LIKE '%x%' AND query LIKE '%y%')
    */
   class Search{
-    
+
     const MIN_AMBIGUOUS_TOKEN_LENGTH = 2;
-    
+
     private $fields         = array();
     private $hooks          = array();
     private $hookData       = array();
     private $_lastSanitize  = '';
     private $_lastParse     = array();
-    
+
     public function __construct( array $fields ){
       $this->setFields( $fields );
     }
-    
+
     /**
      * @param {mixed} $val  The query to parse. Can either be :
      *                        - a string in which case it is parsed
@@ -31,14 +31,14 @@
      * @return {string} The SQL conditions for the given query
      */
     public function getQuery( $val, $skipTableCheck = false ){
-    
+
       $tokens = Search::parse( $val );
       if( !$tokens ){
         return null;
       }
-      
+
       $this->triggerHook( 'getQuery_before', $tokens, $skipTableCheck );
-      
+
       if( $skipTableCheck || !$this->getFields() ){
         $tables = $this->getFields();
         foreach( $tokens['strict'] as $k => $v ){
@@ -85,14 +85,14 @@
       if( isset( $tokens['raw'] ) ){
         $raw = $tokens['raw'];
       }
-      
+
       $this->triggerHook( 'getQuery_after', $strict, $ambiguous, $raw );
 
       if( strlen($strict) <= 4 && strlen($ambiguous) <= 2 && strlen($raw) <= 2 ){
         return null;
       } else {
         $return = '';
-        
+
         $and = false;
         if( strlen( $strict ) > 4 ){
           $return .= " $strict";
@@ -108,14 +108,14 @@
         }
         return $return;
       }
-      
+
     }
-    
+
     public function parse( $str ){
       $str = Search::sanitize( $str );
-      
+
       $this->triggerHook( 'parse_before', $str );
-      
+
       $quotes = array();
       $p = 0;
       $c = 0;
@@ -125,7 +125,7 @@
         $quotes[ $token ] = substr( $str, $p+1, $p2-$p-1 );
         $str              = substr( $str, 0, $p ) . $token . substr( $str, $p2+1 );
       }
-      
+
       $arr = explode( ' ', $str );
       $ambiguous  = array();
       $strict     = array();
@@ -133,13 +133,15 @@
       foreach( $arr as $v ){
         if( strpos( $v, ':' ) !== false ){
           $a = explode(':', $v);
-        
+
           if( !isset( $strict[ $a[0] ] ) ){
             $strict[ $a[0] ] = array();
           }
-          
-          $a[1] = str_ireplace( $keys, $quotes, $a[1] );
-          $b    = explode(',', $a[1]);
+
+          $b = explode(',', $a[1]);
+          for ($i=0; $i<count($b); ++$i) {
+            $b[$i] = str_ireplace( $keys, $quotes, $b[$i] );
+          }
           if( count( $b ) > 0 ){
             $c = count( $strict[ $a[0] ] );
             $strict[ $a[0] ][ $c ] = array();
@@ -147,56 +149,55 @@
               $strict[ $a[0] ][ $c ][] = trim( $b[ $i ] );
             }
           }
-          
         } else {
           $ambiguous[] = $v;
         }
       }
-      
+
       $result = array(
         'ambiguous' => $ambiguous,
         'strict'    => $strict
       );
-      
+
       $this->triggerHook( 'parse_after', $result );
       $this->_lastParse = $result;
-      
+
       return $result;
     }
-    
+
 	  public function sanitize( $str ){
-		
+
       $this->triggerHook( 'sanitize_before', $str );
-      
+
 		  $str 	= str_replace("\n", " ", $str);
 		  $str 	= trim( preg_replace('/\s\s+/', ' ', $str) );
       $str  = str_replace( array("'", "`", "\\"), '', $str );
-      
+
       // check for uneven number of "
       if( count(explode('"', $str )) % 2 == 0 ){
         $str = preg_replace('/^(.*)"([^"]*)$/', '$1$2', $str);
       }
-      
+
 		  $str = preg_replace('/\s*(:\s*)+/', '$1', $str);
 		  $str = preg_replace('/:"\s*([^"]*)\s*"\s*/', ':"$1" ', $str);
 		  $str = preg_replace('/\b([^: ]+:([^: ]+|"[^: ]*")):+/', "$1 ", $str);
 		  $str = preg_replace('/[: ]+([^: ]+:[^: ]+)\b/', " $1", $str);
       $str = trim( $str );
-      
+
       $this->triggerHook( 'sanitize_after', $str );
       $this->_lastSanitize = $str;
-      
+
       return $str;
 	  }
-	  
+
 	  public function getLastParse(){
       return $this->_lastParse;
 	  }
-	  
+
 	  public function getLastSanitize(){
       return $this->_lastSanitize;
 	  }
-	  
+
 	  private function triggerHook( $hookName, &$arg1, &$arg2 = null, &$arg3 = null ){
       if( isset( $this->hooks[ $hookName ] ) ){
         foreach( $this->hooks[ $hookName ] as $k => $function ){
@@ -231,7 +232,7 @@
 	  public function getHooks(){
       return $this->hooks;
 	  }
-	  
+
 	  public function setFields( array $val ){
 	    $this->fields = $val;
 	    return $this;
@@ -239,7 +240,7 @@
 	  public function getFields(){
 	    return $this->fields;
 	  }
-	  
+
   }
-  
+
 ?>
