@@ -597,20 +597,14 @@ $.jPeople = {
         '</div>'+
         '<table class="body" tag="info" cellpadding="1">';
 
-    var used_attributes = [
-      'id', 'eid', 'birthday', 'phone', 'college', 'country', 'email',
-      'fname', 'lname', 'photo_url', 'flag_url', 'majorlong', 'description'
-    ];
-    for (var i=0; i<used_attributes.length; ++i) {
-      delete data[used_attributes[i]];
-    }
+    var attributes = ['college', 'room', 'title', 'office', 'phone', 'email'];
 
-    for( var key in data ){
-      if( data[key] ){
-        console.log(key, data[key]);
-        template += '<tr tag="'+key+'">'+
-                      '<td class="infoCell"> '+(key.slice(0,1).toUpperCase()+key.slice(1))+' </td>'+
-                      '<td><span class="'+key+'">'+data[key]+'</span></td>'+
+    for (var i=0; i<attributes.length; ++i ){
+      if( data[attributes[i]] ){
+        console.log(attributes[i], data[attributes[i]]);
+        template += '<tr tag="'+attributes[i]+'">'+
+                      '<td class="infoCell"> '+(attributes[i].slice(0,1).toUpperCase()+attributes[i].slice(1))+' </td>'+
+                      '<td><span class="'+attributes[i]+'">'+data[attributes[i]]+'</span></td>'+
                     '</tr>';
       }
     }
