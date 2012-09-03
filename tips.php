@@ -6,7 +6,7 @@
       array( 'stefan mercator', 'all stefans in mercator college' ),
       array( 'romania undergrad', 'all Romanians that are undergraduates' ),
       //array( '26.08', 'all people born on the 26th of August (format: dd.yy)' ),
-      array( 'mc-2', 'all mercatorians living in block C floor 2' ),
+      array( 'mc-2', 'all mercatorians living in block C on the second floor' ),
     ),
     'Strict queries' =>
     array(
@@ -25,6 +25,29 @@
     'Common tips' =>
     array(
       array( 'major:cs major:~eecs major:~ics', 'some majors\' acronym is contained in others (e.g. CS and EECS,ICS) . Exclude the ones that you don\'t want')
+    ),
+    'List of all fields' =>
+    array(
+      array('employeetype:faculty', '[admin, faculty, student, undefined]'),
+      array('account:smirea', 'any account name'),
+      array('attributes:president', 'any type of status (e.g. "Research Associate", technician, etc)'),
+      array('fname:stefan', 'first name'),
+      array('lname:mirea', 'last name'),
+      //array('birthday:26.08', 'birth day'),
+      array('country:romania', 'country. NOTE: wrap in double quotes for multiple-word countries (e.g. <code>country:"South Korea"</code>)'),
+      array('college:mercator', '[Mercator, Krupp, College-iii, Nordmetall'),
+      array('majorlong:"Biochemistry and cell Biology"', 'long major name'),
+      array('major:bccb', 'major abreviation'),
+      array('room:mc-109', 'room number'),
+      array('phone:5450', 'jacobs phone number (without prefixes)'),
+      array('email:smirea@jacobs-university.de', 'email address'),
+      array('description:"ug 15 cs"', 'Format: "status year major(s)"'),
+      array('office:"Research I, 100a"', 'office number'),
+      array('deptinfo:physics', 'department information'),
+      array('year:15', 'everyone who leaves jacobs in 2015 (graduating class, RAs, etc). If you want just students, you need to <code>year:15 status:undergrad</code>'),
+      array('status:master', '[undergrad, master, phd, phd-integrated, foundation-year]'),
+      array('block:B', '[A, B, C, D, E]. Everyone who lives in `B` block (irrespective of college)'),
+      array('floor:2', '[1, 2, 3, 4, 5]. Everyone who lives on the `2`nd floor (irrespective of college')
     )
   );
 
