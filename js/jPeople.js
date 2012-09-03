@@ -36,6 +36,8 @@ $.jPeople = {
     	getFace    	: 100,
     	autoComplete	: 200
     },
+    // which columns from the table to display in the description section
+    fields: ['college', 'room', 'title', 'office', 'phone', 'email', 'birthday'],
     placeHolder : 'Click and start typing...'
 	},	classes	: {
     main        	  : 'jPeople',
@@ -93,6 +95,8 @@ $.jPeople = {
     	$(this).addClass(cls.main);
 
     	var com = {
+        opt: opt,
+        cls: cls,
         // will hold the input
         wrapper       : null,
         // will store the jquery-ui autocomplete widget
@@ -200,7 +204,7 @@ $.jPeople = {
         focus : function( e, data ){
           com.faceContainer
             .fadeIn()
-            .html( faceTemplate(data.item.full) )
+            .html( faceTemplate(com, data.item.full) )
             .css({
               position  : 'absolute',
               left      : com.autoComplete.offset().left + com.autoComplete.outerWidth(),
@@ -259,31 +263,31 @@ $.jPeople = {
       com.displayBtn
         .bind('click.togglePopup', function(){
           com.popup.trigger('togglePopup', ['Loading results... ']);
-              com.popup.data('title').html('Search results: ');
-              var r       = com.store.autoComplete.result.records;
-              var emails  = [];
-              var eids    = [];
-              var view    = 'full';
-              var h = getFaceLayout( r, view );
+            com.popup.data('title').html('Search results: ');
+            var r       = com.store.autoComplete.result.records;
+            var emails  = [];
+            var eids    = [];
+            var view    = 'full';
+            var h = getFaceLayout( com, r, view );
 
-              for( var i in r ){
-                eids.push( r[i].eid );
-                if( r[i].email ) {
-                  emails.push( r[i].email );
-                }
+            for( var i in r ){
+              eids.push( r[i].eid );
+              if( r[i].email ) {
+                emails.push( r[i].email );
               }
+            }
 
-              com.popup
-                .data('actions')
-                .find('.btn-email')
-                .attr('href','mailto:'+emails.pop()+'?bcc='+emails.join(', '));
+            com.popup
+              .data('actions')
+              .find('.btn-email')
+              .attr('href','mailto:'+emails.pop()+'?bcc='+emails.join(', '));
 
-              com.popup
-                .data('actions')
-                .find('.btn-contacts')
-                .attr('href', opt.ajaxFile+'?action=vcf&str='+eids.join('_'));
+            com.popup
+              .data('actions')
+              .find('.btn-contacts')
+              .attr('href', opt.ajaxFile+'?action=vcf&str='+eids.join('_'));
 
-              com.popup.data('content').html( h );
+            com.popup.data('content').html( h );
           });
 
         com.tipsBtn
@@ -380,7 +384,7 @@ $.jPeople = {
   function setupDisplayOptions( com, container ){
     var fields = [
       [ 'header', 'fname', 'lname', 'majorlong', 'description'],
-      [ 'info', 'college', 'email', 'phone', 'room', 'birthday', 'country' ]
+      com.opt.fields
     ];
     var layouts = {
       'Full'  : getFaceTemplate_full,
@@ -503,14 +507,14 @@ $.jPeople = {
     }
   }
 
-  function getFaceLayout( dataObject, template ){
+  function getFaceLayout( com, dataObject, template ){
     var data = {};
     $.extend( data, dataObject );
     template = template || 'full';
 
     var html = '';
     for( var i in data) {
-      html += faceTemplate( data[i], template );
+      html += faceTemplate( com, data[i], template );
     }
 
     switch( template ){
@@ -521,7 +525,7 @@ $.jPeople = {
     }
   }
 
-	function faceTemplate( dataObject, template ){
+	function faceTemplate( com, dataObject, template ){
 	  var data = {};
 	  $.extend( data, dataObject );
     template = template || 'full';
@@ -532,13 +536,13 @@ $.jPeople = {
 
 	  switch( template ){
       case 'table':
-        return getFaceTemplate_table( data );
+        return getFaceTemplate_table( com, data );
       default: case 'full':
-        return getFaceTemplate_full( data );
+        return getFaceTemplate_full( com, data );
     }
 	}
 
-  function getFaceTemplate_table( dataObject ){
+  function getFaceTemplate_table( com, dataObject ){
     var data = {};
     $.extend( data, dataObject );
 
@@ -561,7 +565,7 @@ $.jPeople = {
     return template;
   }
 
-  function getFaceTemplate_full( dataObject ){
+  function getFaceTemplate_full( com, dataObject ){
     var data = {};
     $.extend( data, dataObject );
 
@@ -597,11 +601,10 @@ $.jPeople = {
         '</div>'+
         '<table class="body" tag="info" cellpadding="1">';
 
-    var attributes = ['college', 'room', 'title', 'office', 'phone', 'email'];
+    var attributes = com.opt.fields;
 
     for (var i=0; i<attributes.length; ++i ){
       if( data[attributes[i]] ){
-        console.log(attributes[i], data[attributes[i]]);
         template += '<tr tag="'+attributes[i]+'">'+
                       '<td class="infoCell"> '+(attributes[i].slice(0,1).toUpperCase()+attributes[i].slice(1))+' </td>'+
                       '<td><span class="'+attributes[i]+'">'+data[attributes[i]]+'</span></td>'+
