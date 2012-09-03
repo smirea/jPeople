@@ -12,7 +12,7 @@ fclose(fopen(FILE_BIRTHDAYS, "w"));
 chmod(FILE_DATA, 0777);
 chmod(FILE_BIRTHDAYS, 0777);
 
-//getData();
+getData();
 echo "<hr />";
 getBirthdays();
 echo "<hr />--- DONE ---";
