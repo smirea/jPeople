@@ -579,7 +579,6 @@ $.jPeople = {
       data.birthday = prettyBirthday( data.birthday );
     }
 
-    var attribs = [ 'college', 'email', 'phone', 'room', 'birthday' ];
     var template =
       '<div class="face tagSelector">'+
         '<div class="header" tag="header">'+
@@ -598,21 +597,30 @@ $.jPeople = {
         '</div>'+
         '<table class="body" tag="info" cellpadding="1">';
 
-        for( var i in attribs ){
-          if( !data[attribs[i]] ){
-            continue;
-          }
-          template += '<tr tag="'+attribs[i]+'">'+
-                        '<td class="infoCell"> '+(attribs[i].slice(0,1).toUpperCase()+attribs[i].slice(1))+' </td>'+
-                        '<td><span class="'+attribs[i]+'">'+data[attribs[i]]+'</span></td>'+
-                      '</tr>';
-        }
-        template += '</table>'+
-                    '<div class="country" tag="country">'+
-                        country+
-                      '</div>'+
-                    '</div>'+
-                  '</div>';
+    var used_attributes = [
+      'id', 'eid', 'birthday', 'phone', 'college', 'country', 'email',
+      'fname', 'lname', 'photo_url', 'flag_url', 'majorlong', 'description'
+    ];
+    for (var i=0; i<used_attributes.length; ++i) {
+      delete data[used_attributes[i]];
+    }
+
+    for( var key in data ){
+      if( data[key] ){
+        console.log(key, data[key]);
+        template += '<tr tag="'+key+'">'+
+                      '<td class="infoCell"> '+(key.slice(0,1).toUpperCase()+key.slice(1))+' </td>'+
+                      '<td><span class="'+key+'">'+data[key]+'</span></td>'+
+                    '</tr>';
+      }
+    }
+    template += '</table>'+
+                '<div class="country" tag="country">'+
+                    country+
+                  '</div>'+
+                '</div>'+
+              '</div>';
+
     return template;
   }
 
