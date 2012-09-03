@@ -164,7 +164,7 @@
   margin  : 5px 5px 5px 10px;
 }
 .face .body td{
-  vertical-align  : bottom;
+  vertical-align  : top;
 }
 .face .body .infoCell{
   font-weight : bold;
