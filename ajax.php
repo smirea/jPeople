@@ -29,7 +29,7 @@
       break;
       case 'fullAutoComplete':
         $columns  = 'id,eid,employeetype,attributes,account,attributes,fname,lname,birthday,country,college,majorlong,'.
-                    'majorinfo,major,status,year,room,phone,email,description,title,pdon,deptinfo,block,floor';
+                    'majorinfo,major,status,year,room,phone,email,description,title,office,deptinfo,block,floor';
         if( $clause = $Search->getQuery($str) ){
           $res      = mysql_query( "SELECT $columns FROM ".TABLE_SEARCH." WHERE $clause" );
           $records  = sqlToArray($res);
@@ -51,7 +51,7 @@
       break;
       case 'getFace':
         $columns  = 'id,eid,employeetype,attributes,account,attributes,fname,lname,birthday,country,college,majorlong,'.
-                    'majorinfo,major,status,year,room,phone,email,description,title,pdon,deptinfo,block,floor';
+                    'majorinfo,major,status,year,room,phone,email,description,title,office,deptinfo,block,floor';
         $res      = mysql_query( "SELECT $columns FROM ".TABLE_SEARCH." WHERE eid='$str'" );
         sqlToJsonOutput( $res );
       break;

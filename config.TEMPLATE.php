@@ -56,7 +56,7 @@
     'telephonenumber'             => 'phone',
     'description'                 => 'description',
     'title'                       => 'title',
-    'physicaldeliveryofficename'  => 'pdon',
+    'physicaldeliveryofficename'  => 'office',
     'department'                  => 'department',
     'wwwhomepage'                 => 'www',
     'jpegphoto'                   => 'photo',
@@ -65,7 +65,7 @@
 
   $search = array(
     'eid', 'employeetype', 'account', 'attributes', 'fname', 'lname', 'birthday', 'country', 'college',
-    'majorlong', 'majorinfo', 'room', 'phone', 'email', 'description', 'title', 'pdon', 'deptinfo'
+    'majorlong', 'majorinfo', 'room', 'phone', 'email', 'description', 'title', 'office', 'deptinfo'
   );
 
   $search_query = array(
@@ -76,7 +76,7 @@
   $searchable_columns = array(
     'employeetype', 'account', 'attributes', 'fname', 'lname', 'birthday', 'country',
     'college', 'majorlong', 'majorinfo', 'room', 'phone', 'description',
-    'title', 'pdon', 'deptinfo', 'major', 'block', 'floor', 'email', 'year', 'status'
+    'title', 'office', 'deptinfo', 'major', 'block', 'floor', 'email', 'year', 'status'
   );
 
   /******************
