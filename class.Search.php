@@ -13,6 +13,7 @@
   class Search{
 
     const MIN_AMBIGUOUS_TOKEN_LENGTH = 2;
+    const MIN_STRICT_TOKEN_LENGTH = 1;
 
     private $fields         = array();
     private $hooks          = array();
@@ -66,7 +67,7 @@
         foreach( $v as $v2 ){
           $field = array();
           foreach( $v2 as $val ){
-            if( strlen($val) >= Search::MIN_AMBIGUOUS_TOKEN_LENGTH ){
+            if( strlen($val) >= Search::MIN_STRICT_TOKEN_LENGTH ){
               if( substr( $val, 0, 1 ) == '~' ){
                 $field[] = "$k NOT LIKE '%".ltrim($val, '~')."%'";
               } else {
