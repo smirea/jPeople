@@ -69,9 +69,9 @@
           foreach( $v2 as $val ){
             if( strlen($val) >= Search::MIN_STRICT_TOKEN_LENGTH ){
               if( substr( $val, 0, 1 ) == '~' ){
-                $field[] = "$k NOT LIKE '%".ltrim($val, '~')."%'";
+                $field[] = "$k NOT LIKE '".ltrim($val, '~')."%'";
               } else {
-                $field[] = "$k LIKE '%$val%'";
+                $field[] = "$k LIKE '$val%'";
               }
             }
           }
