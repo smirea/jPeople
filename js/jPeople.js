@@ -384,7 +384,8 @@ $.jPeople = {
   function setupDisplayOptions( com, container ){
     var fields = [
       [ 'header', 'fname', 'lname', 'majorlong', 'description'],
-      com.opt.fields
+      com.opt.fields,
+      [ 'country' ]
     ];
     var layouts = {
       'Full'  : getFaceTemplate_full,
@@ -406,6 +407,7 @@ $.jPeople = {
       }
     }
 
+    /*
     columns = columns.add( $(document.createElement('table')) );
     columns.last().html('<tr><th colspan="2">Layout</th></tr>');
     for( i in layouts ){
@@ -416,7 +418,7 @@ $.jPeople = {
         '</tr>'
       );
     }
-
+*/
     columns.addClass('column');
     container
       .append( columns )
