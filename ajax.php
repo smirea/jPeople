@@ -32,19 +32,23 @@
                     'majorinfo,major,status,year,room,phone,email,description,title,office,deptinfo,block,floor';
         if( $clause = $Search->getQuery($str) ){
           $res      = mysql_query( "SELECT $columns FROM ".TABLE_SEARCH." WHERE $clause" );
-          $records  = sqlToArray($res);
-          foreach ($records as $key => $value) {
-            $records[$key]['photo_url'] = imageUrl($value['eid']);
-            $records[$key]['flag_url'] = flagURL($value['country']);
-          }
+          if ($res) {
+            $records  = sqlToArray($res);
+            foreach ($records as $key => $value) {
+              $records[$key]['photo_url'] = imageUrl($value['eid']);
+              $records[$key]['flag_url'] = flagURL($value['country']);
+            }
 
-          jsonOutput(array(
-            'sanitize'  => $Search->getLastSanitize(),
-            'parse'     => $Search->getLastParse(),
-            'length'    => mysql_num_rows( $res ),
-            'clause'    => $clause,
-            'records'   => $records
-          ));
+            jsonOutput(array(
+              'sanitize'  => $Search->getLastSanitize(),
+              'parse'     => $Search->getLastParse(),
+              'length'    => mysql_num_rows( $res ),
+              'clause'    => $clause,
+              'records'   => $records
+            ));
+          } else {
+            jsonOutput(array('error' => mysql_error()));
+          }
         } else {
           jsonOutput( array( 'error' => 'Invalid query' ) );
         }
