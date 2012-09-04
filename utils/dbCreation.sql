@@ -1,3 +1,19 @@
+
+/** Tracking **/
+
+CREATE TABLE IF NOT EXISTS `Tracking` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `timestamp` int(11) NOT NULL,
+  `ip` varchar(48) NOT NULL,
+  `failed` tinyint(1) NOT NULL DEFAULT '0',
+  `error` text NOT NULL,
+  `query` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `timestamp` (`timestamp`,`ip`,`failed`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ;
+
+/** Course search **/
+
 DROP TABLE IF EXISTS Professors;
 CREATE TABLE Professors  (
   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
