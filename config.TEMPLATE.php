@@ -6,6 +6,7 @@
 
   define( 'TABLE_RAWDATA', 'RawData' );
   define( 'TABLE_SEARCH', 'Search' );
+  define( 'TABLE_TRACKING', 'Tracking' );
 
   define( 'WEB_ROOT', 'http://localhost/jPeople');
 
