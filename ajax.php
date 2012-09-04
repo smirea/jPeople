@@ -1,6 +1,7 @@
 <?php
 
   require_once 'config.php';
+  require_once 'utils.php';
   require_once 'VCF.php';
 
   if(!isset($_GET['action']) || strlen($_GET['action']) < 2) {
@@ -31,14 +32,15 @@
         $columns  = 'id,eid,employeetype,attributes,account,attributes,fname,lname,birthday,country,college,majorlong,'.
                     'majorinfo,major,status,year,room,phone,email,description,title,office,deptinfo,block,floor';
         if( $clause = $Search->getQuery($str) ){
-          $res      = mysql_query( "SELECT $columns FROM ".TABLE_SEARCH." WHERE $clause" );
+          $query    = "SELECT $columns FROM ".TABLE_SEARCH." WHERE $clause"; 
+          $res      = mysql_query($query);
           if ($res) {
             $records  = sqlToArray($res);
             foreach ($records as $key => $value) {
               $records[$key]['photo_url'] = imageUrl($value['eid']);
               $records[$key]['flag_url'] = flagURL($value['country']);
             }
-
+            track('query', $str);
             jsonOutput(array(
               'sanitize'  => $Search->getLastSanitize(),
               'parse'     => $Search->getLastParse(),
@@ -47,9 +49,11 @@
               'records'   => $records
             ));
           } else {
+            track('query', $str, true, mysql_error());
             jsonOutput(array('error' => mysql_error()));
           }
         } else {
+          track('query', $str, true);
           jsonOutput( array( 'error' => 'Invalid query' ) );
         }
       break;
@@ -92,5 +96,4 @@
   } else {
     jsonOutput( array( 'error' => 'No search string specified' ) );
   }
-
 ?>
