@@ -5,9 +5,13 @@
 
   function track ($column, $value, $failed = false, $error = '') {
     $time = date('Y.m.d H:i:s');
-    $query = "INSERT INTO ".TABLE_TRACKING."(timestamp, time, ip, failed, error, query) ".
-                     "VALUES ('".time()."', '$time', '".get_ip_address()."', '$failed', '$error', '$value')";
-    return mysql_query($query);
+    $ua = getBrowser();
+    $query = "INSERT INTO ".TABLE_TRACKING."(timestamp, time, ip, os, browser, browser_version, failed, error, query) ".
+                     "VALUES ('".time()."', '$time', '".get_ip_address()."', '".$ua['platform']."', '".
+                                $ua['name']."', '".$ua['version']."', '$failed', '$error', '$value')";
+    $result = mysql_query($query);
+    echo mysql_error();
+    return !!$result;
   }
 
   function get_ip_address () {
