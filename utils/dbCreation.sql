@@ -4,6 +4,7 @@
 CREATE TABLE IF NOT EXISTS `Tracking` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `timestamp` int(11) NOT NULL,
+  `time` varchar(32) DEFAULT NULL,
   `ip` varchar(48) NOT NULL,
   `failed` tinyint(1) NOT NULL DEFAULT '0',
   `error` text NOT NULL,
