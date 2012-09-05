@@ -4,8 +4,9 @@
   require_once 'config.php';
 
   function track ($column, $value, $failed = false, $error = '') {
+    $time = date('Y.m.d H:i:s');
     $query = "INSERT INTO ".TABLE_TRACKING."(timestamp, ip, failed, error, query) ".
-                     "VALUES ('".time()."', '".get_ip_address()."', '$failed', '$error', '$value')";
+                     "VALUES ('".time()."', '$time', '".get_ip_address()."', '$failed', '$error', '$value')";
     return mysql_query($query);
   }
 
