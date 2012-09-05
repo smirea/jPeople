@@ -34,7 +34,7 @@ $.jPeople = {
     // the number of ms to wait before a request performed
     'timeout'    : {
     	getFace    	: 100,
-    	autoComplete	: 300
+    	autoComplete	: 500
     },
     // which columns from the table to display in the description section
     fields: ['college', 'room', 'title', 'office', 'phone', 'email', 'birthday'],
