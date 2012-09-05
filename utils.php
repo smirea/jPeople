@@ -5,7 +5,7 @@
 
   function track ($column, $value, $failed = false, $error = '') {
     $time = date('Y.m.d H:i:s');
-    $query = "INSERT INTO ".TABLE_TRACKING."(timestamp, ip, failed, error, query) ".
+    $query = "INSERT INTO ".TABLE_TRACKING."(timestamp, time, ip, failed, error, query) ".
                      "VALUES ('".time()."', '$time', '".get_ip_address()."', '$failed', '$error', '$value')";
     return mysql_query($query);
   }
