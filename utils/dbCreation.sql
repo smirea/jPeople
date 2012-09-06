@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS `Tracking` (
   `os` varchar(16) NOT NULL,
   `browser` varchar(16) NOT NULL,
   `browser_version` varchar(16) NOT NULL,
+  `user_agent` varchar(512) NOT NULL,
   `failed` tinyint(1) NOT NULL DEFAULT '0',
   `error` text NOT NULL,
   `query` varchar(256) NOT NULL,

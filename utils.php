@@ -6,9 +6,11 @@
   function track ($column, $value, $failed = false, $error = '') {
     $time = date('Y.m.d H:i:s');
     $ua = getBrowser();
-    $query = "INSERT INTO ".TABLE_TRACKING."(timestamp, time, ip, os, browser, browser_version, failed, error, query) ".
+    $query = "INSERT INTO ".TABLE_TRACKING."(timestamp, time, ip, os, browser, 
+                            browser_version, user_agent, failed, error, query) ".
                      "VALUES ('".time()."', '$time', '".get_ip_address()."', '".$ua['platform']."', '".
-                                $ua['name']."', '".$ua['version']."', '$failed', '$error', '$value')";
+                                $ua['name']."', '".$ua['version']."', '".$_SERVER['HTTP_USER_AGENT'].
+                                "', '$failed', '$error', '$value')";
     $result = mysql_query($query);
     echo mysql_error();
     return !!$result;
