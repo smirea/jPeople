@@ -6,13 +6,28 @@
   function track ($column, $value, $failed = false, $error = '') {
     $time = date('Y.m.d H:i:s');
     $ua = UA::parse();
-    $query = "INSERT INTO ".TABLE_TRACKING."(timestamp, time, ip, os, browser,
-                            browser_version, user_agent, failed, error, query)".
-                     " VALUES ('".time()."', '$time', '".get_ip_address().
-                                "', '".$ua->os."', '". $ua->browser.
-                                "', '".$ua->version."', '".
-                                $_SERVER['HTTP_USER_AGENT'].
-                                "', '$failed', '$error', '$value')";
+    $record = array(
+      'timestamp' => time(),
+      'time' => $time,
+      'ip' => get_ip_address(),
+      'isSpider' => $ua->isSpider,
+      'os' => $ua->os,
+      'osVersion' => $ua->osVersion,
+      'browser' => $ua->browser,
+      'browserVersion' => $ua->version,
+      'device' => $ua->device,
+      'deviceVersion' => $ua->deviceVersion,
+      'isMobile' => $ua->isMobile,
+      'user_agent' => $_SERVER['HTTP_USER_AGENT'],
+      'failed' => $failed,
+      'error' => $error,
+      'query' => $value
+    );
+    $record = array_map(function ($val) { return "'$val'"; }, $record);
+    $query = "INSERT INTO ".TABLE_TRACKING."(".
+                        implode(', ', array_keys($record)).
+                      ")".
+                     " VALUES (".implode(', ', $record).")";
     $result = mysql_query($query);
     return !!$result;
   }
