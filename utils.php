@@ -5,20 +5,22 @@
 
   function track ($column, $value, $failed = false, $error = '') {
     $time = date('Y.m.d H:i:s');
-    $ua = UA::parse();
+    $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? 
+                      $_SERVER['HTTP_USER_AGENT'] : 'spider';
+    $ua = UA::parse($user_agent);
     $record = array(
       'timestamp' => time(),
       'time' => $time,
       'ip' => get_ip_address(),
-      'isSpider' => $ua->isSpider,
-      'os' => $ua->os,
-      'osVersion' => $ua->osVersion,
-      'browser' => $ua->browser,
-      'browserVersion' => $ua->version,
+      'isSpider' => @$ua->isSpider,
+      'os' => @$ua->os,
+      'osVersion' => @$ua->osVersion,
+      'browser' => @$ua->browser,
+      'browserVersion' => @$ua->version,
       'device' => @$ua->device,
       'deviceVersion' => @$ua->deviceVersion,
-      'isMobile' => $ua->isMobile,
-      'user_agent' => $_SERVER['HTTP_USER_AGENT'],
+      'isMobile' => @$ua->isMobile,
+      'user_agent' => $user_agent,
       'failed' => $failed,
       'error' => $error,
       'query' => $value
