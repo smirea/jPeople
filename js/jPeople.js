@@ -34,7 +34,7 @@ $.jPeople = {
     // the number of ms to wait before a request performed
     'timeout'    : {
     	getFace    	: 100,
-    	autoComplete	: 500
+    	autoComplete	: 800
     },
     // which columns from the table to display in the description section
     fields: ['college', 'room', 'title', 'office', 'phone', 'email', 'birthday'],
@@ -195,7 +195,7 @@ $.jPeople = {
     	com.textField.autocomplete({
         autofocus : true,
         minLength : opt.minLength,
-        delay     : 400,
+        delay     : opt.timeout.autoComplete,
         create    : function( e, data ){
           com.autoComplete = $(this).autocomplete('widget');
           com.autoComplete.addClass( cls.autoComplete );
