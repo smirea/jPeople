@@ -256,7 +256,7 @@ $.jPeople = {
               com.displayBtn.find('.numberOfItems').html(data.length);
               response($.map( data.records, function( item ){
                 var college = item.college ? collegeIcon( item.college ) : '';
-                var country = item.country && item.country.length > 1 ? '<img src="images/flags/'+(item.country.replace(' ', '_'))+'.png" title="'+item.country+'" />' : '';
+                var country = item.country && item.country.length > 1 ? '<img src="'+item.flag_small_url+'" title="'+item.country+'" />' : '';
                 var label = '<span class="'+cls.itemName+'">'+item.fname+' '+item.lname+'</span> <span class="'+cls.itemMeta+'">'+college+country+'</span>'
                 return {
                   label : label,
@@ -564,7 +564,7 @@ $.jPeople = {
     $.extend( data, dataObject );
 
     if( data.country ){
-      data.country = data.country+' <img src="images/flags/'+data.country+'.png" alt="'+data.county+'" />';
+      data.country = data.country+' <img src="'+data.flag_url+'" alt="'+data.county+'" />';
     }
     if( data.college ){
       data.college = collegeIcon( data.college );
