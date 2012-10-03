@@ -144,6 +144,7 @@ $.jPeople = {
       com.wrapper = com.textField.parent();
       com.wrapper.addClass( cls.wrapper );
 
+/*
       $(document).bind('click.closeAutoComplete', function (event) {
         var containers = [com.faceContainer, com.autoComplete, com.wrapper];
         var $containers = $(containers);
@@ -154,7 +155,7 @@ $.jPeople = {
           //com.textField.autocomplete('close');
         }
       });
-
+*/
       com.menu
         .addClass( cls.menu )
         .insertAfter( com.textField )
