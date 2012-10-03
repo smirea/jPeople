@@ -141,18 +141,6 @@
       com.wrapper = com.textField.parent();
       com.wrapper.addClass( cls.wrapper );
 
-/*
-      $(document).bind('click.closeAutoComplete', function (event) {
-        var containers = [com.faceContainer, com.autoComplete, com.wrapper];
-        var $containers = $(containers);
-        var $parents = $(event.taget).parents();
-        console.log($(event.target).parents().andSelf().find($containers));
-        if ($parents.filter($containers).length === 0) {
-         // console.log('>>>>>>>', event, $parents);
-          //com.textField.autocomplete('close');
-        }
-      });
-*/
       com.menu
         .addClass( cls.menu )
         .insertAfter( com.textField )
@@ -300,6 +288,7 @@
               .attr('href', opt.ajaxFile+'?action=vcf&str='+eids.join('_'));
             
             com.popup.data('content').html( h );
+            com.popup.find('input[type="checkbox"]').tCheckbox('set');
           });
 
         com.tipsBtn
