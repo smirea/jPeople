@@ -171,7 +171,7 @@ $.jPeople = {
         })
         .addClass( cls.button )
         .addClass( cls.tipsBtn )
-        .html( 'Tips & Tricks' );
+        .html( 'Tips' );
 
       com.tipsPopup
         .css({
