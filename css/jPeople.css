@@ -134,6 +134,9 @@
   background  : #fff;
   width       : 300px;
 }
+.face a {
+  color: #2266ff;
+}
 .face .header{
   border-bottom : 1px solid #bbb;
   margin  : 5px;
