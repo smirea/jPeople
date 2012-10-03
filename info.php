@@ -24,7 +24,7 @@
     </li>
   </ul>
   <p>
-    Happy stalking!
+    Happy searching!
   </p>
 
   <hr />
