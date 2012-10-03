@@ -409,7 +409,7 @@
 
     for( i=0; i<fields.length; ++i ){
       columns = columns.add( $(document.createElement('table')) );
-      for( var j=0; j<fields[i]; ++j ){
+      for( var j=0; j<fields[i].length; ++j ){
         columns.last().append(
           '<tr>'+
             '<td><b>'+fields[i][j]+':</b> </td>'+
