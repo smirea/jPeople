@@ -17,6 +17,17 @@ CREATE TABLE IF NOT EXISTS `Tracking` (
   KEY `timestamp` (`timestamp`,`ip`,`failed`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ;
 
+/** Feedback **/
+CREATE TABLE IF NOT EXISTS `Tracking` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `time` varchar(32) DEFAULT NULL,
+  `name` varchar(128),
+  `email` varchar(128),
+  `type` varchar(32),
+  `message` text,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ;
+
 /** Course search **/
 
 DROP TABLE IF EXISTS Professors;
