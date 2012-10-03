@@ -401,7 +401,7 @@
           event.preventDefault();
           var formData = $(this).serialize();
           $.get(com.opt.feedbackFile + '?' + formData, function (r) {
-            console.log(r)
+            overlay.find('.' + com.cls.popupTitleClose).click();
           });
         });
       });
