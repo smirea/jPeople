@@ -326,7 +326,7 @@ $.jPeople = {
 
         com.popup
           .html('<div class="'+cls.popupCWrapper+'">'+
-                '<h1><span>No title...</span><a href="#" class="'+cls.popupTitleClose+'">X</a></h1>'+
+                '<h1><span>No title...</span><a href="javascript:void(0)" class="'+cls.popupTitleClose+'">X</a></h1>'+
                 '<div class="'+cls.popupActions+'">'+
                   '<a href="javascript:void(0)" class="btn btn-email">Mail all</a>'+
                   '<a href="javascript:void(0)" class="btn btn-contacts">Export contacts</a>'+

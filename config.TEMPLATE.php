@@ -8,7 +8,7 @@
   define( 'TABLE_SEARCH', 'Search' );
   define( 'TABLE_TRACKING', 'Tracking' );
 
-  define( 'WEB_ROOT', 'http://localhost/jPeople');
+  define( 'WEB_ROOT', 'http://localhost/jPeople/');
 
   require_once 'class.Search.php';
   require_once 'utils/query.php';
@@ -27,12 +27,18 @@
   }
 
   function imageURL( $eid ){
-    return "http://swebtst01.public.jacobs-university.de/jPeople/image.php?id=$eid";
+    //return "http://swebtst01.public.jacobs-university.de/jPeople/image.php?id=$eid";
+    return WEB_ROOT . "/utils/images/$eid.jpg";
   }
 
   function flagURL( $country ){
     $country = str_replace( " ", '%20', $country );
     return "http://swebtst01.public.jacobs-university.de/jPeople//embed_assets/flags/$country.png";
+  }
+
+  function flag_small_url( $country ){
+    $country = str_replace( " ", '_', $country );
+    return WEB_ROOT . "images/flags/$country.png";
   }
 
   /******************
