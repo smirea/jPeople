@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `Tracking` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ;
 
 /** Feedback **/
-CREATE TABLE IF NOT EXISTS `Tracking` (
+CREATE TABLE IF NOT EXISTS `Feedback` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `time` varchar(32) DEFAULT NULL,
   `name` varchar(128),
