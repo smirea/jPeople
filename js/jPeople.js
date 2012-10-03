@@ -118,6 +118,8 @@ $.jPeople = {
         // a popup that can be used for various things
         // TODO: make popup a standalone-pluggable plugin so it can be replaced with any popup plugin
         popup        	: $('<div class="'+cls.popup+'"></div>'),
+        //
+        autoComplete  : null,
         // used to send request at reasonable intervals
         timeout       : {
         	getFace    	: null,
@@ -140,6 +142,17 @@ $.jPeople = {
 
       com.wrapper = com.textField.parent();
       com.wrapper.addClass( cls.wrapper );
+
+      $(document).bind('click.closeAutoComplete', function (event) {
+        var containers = [com.faceContainer, com.autoComplete, com.wrapper];
+        var $containers = $(containers);
+        var $parents = $(event.taget).parents();
+        console.log($(event.target).parents().andSelf().find($containers));
+        if ($parents.filter($containers).length === 0) {
+         // console.log('>>>>>>>', event, $parents);
+          //com.textField.autocomplete('close');
+        }
+      });
 
       com.menu
         .addClass( cls.menu )
