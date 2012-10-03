@@ -51,11 +51,12 @@
 }
 .jPeople-button{
   overflow        : hidden;
+  float           : left;
   display         : table-cell;
   position: relative;
   background      : #fefefe;
-  width           : 70px;
-  padding         : 4px 5px;
+  width           : 33%;
+  padding         : 4px 0;
   font-family     : verdana;
   font-size       : 9pt;
   text-align      : center;
@@ -68,7 +69,8 @@
   color         : crimson;
 }
 .jPeople-button:active{
-  font-weight : bold;
+  left: 1px;
+  top: 1px;
 }
 .jPeople-button-selected{
   border-color  : #6A8ECD;
