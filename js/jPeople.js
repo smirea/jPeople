@@ -298,7 +298,7 @@
               .data('actions')
               .find('.btn-contacts')
               .attr('href', opt.ajaxFile+'?action=vcf&str='+eids.join('_'));
-
+            
             com.popup.data('content').html( h );
           });
 
@@ -522,12 +522,12 @@
   }
 
   function getFaceLayout( com, dataObject, template ){
-    var data = {};
+    var data = [];
     $.extend( data, dataObject );
     template = template || 'full';
-
+    
     var html = '';
-    for( var i in data) {
+    for( var i=0; i<data.length; ++i) {
       html += faceTemplate( com, data[i], template );
     }
 
