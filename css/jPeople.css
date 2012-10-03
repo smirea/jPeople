@@ -292,6 +292,9 @@
 .jPeople-infoOverlay p, .jPeople-infoOverlay form {
   margin: 5px 8px;
 }
+.jPeople-infoOverlay ul {
+  list-style-type: circle;
+}
 .jPeople-infoOverlay ul, .jPeople-infoOverlay ol {
   margin: 0;
   padding: 0 0 0 30px;
