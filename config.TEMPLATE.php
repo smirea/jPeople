@@ -33,7 +33,7 @@
 
   function flagURL( $country ){
     $country = str_replace( " ", '%20', $country );
-    return "http://swebtst01.public.jacobs-university.de/jPeople//embed_assets/flags/$country.png";
+    return "http://swebtst01.public.jacobs-university.de/jPeople/embed_assets/flags/$country.png";
   }
 
   function flag_small_url( $country ){
