@@ -14,67 +14,64 @@
     this.css("left", ( $(window).width() - this.width() ) / 2+$(window).scrollLeft() + "px");
     return this;
   }
-})(jQuery);
 
-
-$.extend($.expr[':'], {
-  jPeople : function(){
-    return !!$(a).data('jPeople');
-  },
-  textarea  : function(a){
-    return a.nodeName.toLowerCase() == 'textarea';
-  }
-});
-
-
-$.jPeople = {
-  options : {
-    'ajaxFile'  : 'ajax.php',
-    'tipsFile'  : 'tips.php',
-    'minLength' : 3,
-    // the number of ms to wait before a request performed
-    'timeout'    : {
-      getFace     : 100,
-      autoComplete  : 800
+  $.extend($.expr[':'], {
+    jPeople : function(){
+      return !!$(a).data('jPeople');
     },
-    // which columns from the table to display in the description section
-    fields: ['college', 'room', 'title', 'office', 'phone', 'email', 'birthday'],
-    placeHolder : 'Click and start typing...'
-  },  classes : {
-    main            : 'jPeople',
-    outputContainer : 'jPeople-outputContainer',
-    autoComplete    : 'jPeople-autoComplete',
-    faceContainer   : 'jPeople-faceContainer',
-    searchInput     : 'jPeople-search',
-    wrapper         : 'jPeople-wrapper',
-    itemName        : 'jPeople-item-name',
-    itemMeta        : 'jPeople-item-meta',
-    itemOdd         : 'jPeople-item-odd',
-    itemFocused     : 'jPeople-item-selected',
-    menu            : 'jPeople-menu',
-    button          : 'jPeople-button',
-    buttonSelected  : 'jPeople-button-selected',
-    displayBtn      : 'jPeople-displayBtn',
-    infoBtn         : 'jPeople-infoBtn',
-    tipsBtn         : 'jPeople-tipsBtn',
-    popup           : 'jPeople-popup',
-    tipsPopup       : 'jPeople-tipsPopup',
-    popupActions    : 'jPeople-popup-actions',
-    popupOptions    : 'jPeople-popup-options',
-    popupCWrapper   : 'jPeople-popup-content-wrapper',
-    popupContent    : 'jPeople-popup-content',
-    popupInputs     : 'jPeople-popup-inputs',
-    popupTitleClose : 'jPeople-popup-close',
-    faceid          : 'jPeople-ID',
-    faceidTD        : 'jPeople-ID-TD',
-    faceidInfo      : 'jPeople-ID-info',
-    faceidMarginTd  : 'jPeople-ID-marginTD',
-    faceidInfoCell  : 'jPeople-ID-infoCell',
-    print           : 'jPeople-printable'
-  }
-};
+    textarea  : function(a){
+      return a.nodeName.toLowerCase() == 'textarea';
+    }
+  });
 
-(function($){
+
+  $.jPeople = {
+    options : {
+      'ajaxFile'  : 'ajax.php',
+      'tipsFile'  : 'tips.php',
+      'minLength' : 3,
+      // the number of ms to wait before a request performed
+      'timeout'    : {
+        getFace     : 100,
+        autoComplete  : 800
+      },
+      // which columns from the table to display in the description section
+      fields: ['college', 'room', 'title', 'office', 'phone', 'email', 'birthday'],
+      placeHolder : 'Click and start typing...'
+    },  classes : {
+      main            : 'jPeople',
+      outputContainer : 'jPeople-outputContainer',
+      autoComplete    : 'jPeople-autoComplete',
+      faceContainer   : 'jPeople-faceContainer',
+      searchInput     : 'jPeople-search',
+      wrapper         : 'jPeople-wrapper',
+      itemName        : 'jPeople-item-name',
+      itemMeta        : 'jPeople-item-meta',
+      itemOdd         : 'jPeople-item-odd',
+      itemFocused     : 'jPeople-item-selected',
+      menu            : 'jPeople-menu',
+      button          : 'jPeople-button',
+      buttonSelected  : 'jPeople-button-selected',
+      displayBtn      : 'jPeople-displayBtn',
+      infoBtn         : 'jPeople-infoBtn',
+      tipsBtn         : 'jPeople-tipsBtn',
+      popup           : 'jPeople-popup',
+      tipsPopup       : 'jPeople-tipsPopup',
+      popupActions    : 'jPeople-popup-actions',
+      popupOptions    : 'jPeople-popup-options',
+      popupCWrapper   : 'jPeople-popup-content-wrapper',
+      popupContent    : 'jPeople-popup-content',
+      popupInputs     : 'jPeople-popup-inputs',
+      popupTitleClose : 'jPeople-popup-close',
+      faceid          : 'jPeople-ID',
+      faceidTD        : 'jPeople-ID-TD',
+      faceidInfo      : 'jPeople-ID-info',
+      faceidMarginTd  : 'jPeople-ID-marginTD',
+      faceidInfoCell  : 'jPeople-ID-infoCell',
+      print           : 'jPeople-printable'
+    }
+  };
+
   /* this allows us to pass in HTML tags to autocomplete. Without this they get escaped */
   $[ "ui" ][ "autocomplete" ].prototype["_renderItem"] = function( ul, item ) {
     return $( "<li></li>" )
