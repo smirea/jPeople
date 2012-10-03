@@ -1,4 +1,6 @@
-
+<?php
+  require_once 'config.php';
+?>
 <section>
   <h1>
     Hello World!
