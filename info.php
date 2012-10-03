@@ -5,7 +5,7 @@
   <h1>
     Hello World!
     <a class="jPeople-popup-close" href="javascript:void(0)"
-        onclick="$('.jPeople-infoOverlay').fadeOut()">close (x)</a>
+        onclick="jQuery('.jPeople-infoOverlay').fadeOut()">close (x)</a>
   </h1>
   <p>
     This is the new (better) version of jPeople.<br />
