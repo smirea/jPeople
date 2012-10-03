@@ -27,11 +27,13 @@
 
   $.jPeople = {
     options : {
-      'ajaxFile'  : 'ajax.php',
-      'tipsFile'  : 'tips.php',
-      'minLength' : 3,
+      'ajaxFile'      : 'ajax.php',
+      'tipsFile'      : 'tips.php',
+      'infoFile'      : 'info.php',
+      'feedbackFile'  : 'feedback.php',
+      'minLength'     : 3,
       // the number of ms to wait before a request performed
-      'timeout'    : {
+      'timeout': {
         getFace     : 100,
         autoComplete  : 800
       },
@@ -54,6 +56,7 @@
       buttonSelected  : 'jPeople-button-selected',
       displayBtn      : 'jPeople-displayBtn',
       infoBtn         : 'jPeople-infoBtn',
+      infoOverlay     : 'jPeople-infoOverlay',
       tipsBtn         : 'jPeople-tipsBtn',
       popup           : 'jPeople-popup',
       tipsPopup       : 'jPeople-tipsPopup',
@@ -113,6 +116,8 @@
         tipsBtn       : $(document.createElement('a')),
         //
         tipsPopup     : $(document.createElement('div')),
+        //
+        infoOverlay   : null,
         // a popup that can be used for various things
         // TODO: make popup a standalone-pluggable plugin so it can be replaced with any popup plugin
         popup         : $('<div class="'+cls.popup+'"></div>'),
@@ -155,6 +160,7 @@
         .addClass( cls.displayBtn )
         .html('Show all <span class="numberOfItems">0</span>');
 
+      com.infoOverlay = make_info_overlay(com);
       com.infoBtn
         .attr({
           'href'  : 'javascript:void(0)',
@@ -162,7 +168,10 @@
         })
         .addClass( cls.button )
         .addClass( cls.infoBtn )
-        .html( 'Info' );
+        .html( 'Info' )
+        .bind( 'click.showInfoOverlay', function () {
+          com.infoOverlay.fadeIn();
+        });
 
       com.tipsBtn
         .attr({
@@ -286,7 +295,7 @@
               .data('actions')
               .find('.btn-contacts')
               .attr('href', opt.ajaxFile+'?action=vcf&str='+eids.join('_'));
-            
+
             com.popup.data('content').html( h );
             com.popup.find('input[type="checkbox"]').tCheckbox('set');
           });
@@ -380,6 +389,23 @@
 
     });
 
+  }
+
+  function make_info_overlay (com) {
+    var overlay = $(document.createElement('div'));
+    overlay
+      .appendTo(document.documentElement)
+      .addClass(com.cls.infoOverlay)
+      .load(com.opt.infoFile, function () {
+        overlay.find('#feedback-form').bind('submit.ajaxSend', function (event) {
+          event.preventDefault();
+          var formData = $(this).serialize();
+          $.get(com.opt.feedbackFile + '?' + formData, function (r) {
+            console.log(r)
+          });
+        });
+      });
+    return overlay;
   }
 
   function setupDisplayOptions( com, container ){
@@ -502,7 +528,7 @@
     var data = [];
     $.extend( data, dataObject );
     template = template || 'full';
-    
+
     var html = '';
     for( var i=0; i<data.length; ++i) {
       html += faceTemplate( com, data[i], template );
