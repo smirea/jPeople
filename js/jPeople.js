@@ -407,9 +407,9 @@
     var columns = $();
     var i;
 
-    for( i in fields ){
+    for( i=0; i<fields.length; ++i ){
       columns = columns.add( $(document.createElement('table')) );
-      for( var j in fields[i] ){
+      for( var j=0; j<fields[i]; ++j ){
         columns.last().append(
           '<tr>'+
             '<td><b>'+fields[i][j]+':</b> </td>'+
@@ -419,18 +419,6 @@
       }
     }
 
-    /*
-    columns = columns.add( $(document.createElement('table')) );
-    columns.last().html('<tr><th colspan="2">Layout</th></tr>');
-    for( i in layouts ){
-      columns.last().append(
-        '<tr>'+
-          '<td><b>'+i+'</b></td>'+
-          '<td><input type="checkbox" checked="checked" layout="'+i+'" />'+
-        '</tr>'
-      );
-    }
-*/
     columns.addClass('column');
     container
       .append( columns )
