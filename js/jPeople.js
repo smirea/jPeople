@@ -1,5 +1,5 @@
 /**
- *	This version of JPeople is developed by Stefan Mirea @ Mercator College Office
+ *  This version of JPeople is developed by Stefan Mirea @ Mercator College Office
  * If you plan on using it for your site, please give credits
  * Also, if you want to modify it or use it for something else, don't forget
  * who did it first :)
@@ -8,48 +8,49 @@
 **/
 
 (function($){
-	$.fn.center = function () {
+  $.fn.center = function () {
     this.css("position","absolute");
     this.css("top", ( $(window).height() - this.height() ) / 2+$(window).scrollTop() + "px");
     this.css("left", ( $(window).width() - this.width() ) / 2+$(window).scrollLeft() + "px");
     return this;
-	}
+  }
 })(jQuery);
 
 
 $.extend($.expr[':'], {
-	jPeople : function(){
+  jPeople : function(){
     return !!$(a).data('jPeople');
-	},
-	textarea	: function(a){
+  },
+  textarea  : function(a){
     return a.nodeName.toLowerCase() == 'textarea';
-	}
+  }
 });
 
 
 $.jPeople = {
-	options	: {
+  options : {
     'ajaxFile'  : 'ajax.php',
+    'tipsFile'  : 'tips.php',
     'minLength' : 3,
     // the number of ms to wait before a request performed
     'timeout'    : {
-    	getFace    	: 100,
-    	autoComplete	: 800
+      getFace     : 100,
+      autoComplete  : 800
     },
     // which columns from the table to display in the description section
     fields: ['college', 'room', 'title', 'office', 'phone', 'email', 'birthday'],
     placeHolder : 'Click and start typing...'
-	},	classes	: {
-    main        	  : 'jPeople',
-    outputContainer	: 'jPeople-outputContainer',
+  },  classes : {
+    main            : 'jPeople',
+    outputContainer : 'jPeople-outputContainer',
     autoComplete    : 'jPeople-autoComplete',
     faceContainer   : 'jPeople-faceContainer',
-    searchInput    	: 'jPeople-search',
+    searchInput     : 'jPeople-search',
     wrapper         : 'jPeople-wrapper',
     itemName        : 'jPeople-item-name',
     itemMeta        : 'jPeople-item-meta',
     itemOdd         : 'jPeople-item-odd',
-    itemFocused    	: 'jPeople-item-selected',
+    itemFocused     : 'jPeople-item-selected',
     menu            : 'jPeople-menu',
     button          : 'jPeople-button',
     buttonSelected  : 'jPeople-button-selected',
@@ -62,15 +63,15 @@ $.jPeople = {
     popupOptions    : 'jPeople-popup-options',
     popupCWrapper   : 'jPeople-popup-content-wrapper',
     popupContent    : 'jPeople-popup-content',
-    popupInputs    	: 'jPeople-popup-inputs',
+    popupInputs     : 'jPeople-popup-inputs',
     popupTitleClose : 'jPeople-popup-close',
     faceid          : 'jPeople-ID',
-    faceidTD     	  : 'jPeople-ID-TD',
-    faceidInfo     	: 'jPeople-ID-info',
-    faceidMarginTd 	: 'jPeople-ID-marginTD',
+    faceidTD        : 'jPeople-ID-TD',
+    faceidInfo      : 'jPeople-ID-info',
+    faceidMarginTd  : 'jPeople-ID-marginTD',
     faceidInfoCell  : 'jPeople-ID-infoCell',
-    print        	  : 'jPeople-printable'
-	}
+    print           : 'jPeople-printable'
+  }
 };
 
 (function($){
@@ -82,7 +83,7 @@ $.jPeople = {
       .appendTo( ul );
   };
 
-	$.fn.jPeople = function(options, classes){
+  $.fn.jPeople = function(options, classes){
 
     var opt = {};
     var cls = {};
@@ -92,9 +93,9 @@ $.jPeople = {
 
     return this.each(function(o){
 
-    	$(this).addClass(cls.main);
+      $(this).addClass(cls.main);
 
-    	var com = {
+      var com = {
         opt: opt,
         cls: cls,
         // will hold the input
@@ -104,7 +105,7 @@ $.jPeople = {
         // will hold the individual info
         faceContainer : $(document.createElement('div')).addClass(cls.faceContainer),
         // the actual search field
-        textField    	: $(this),
+        textField     : $(this),
         // wrapper for the buttons under the textfields
         menu          : $(document.createElement('div')),
         // the trigger for displaying all the results
@@ -117,21 +118,21 @@ $.jPeople = {
         tipsPopup     : $(document.createElement('div')),
         // a popup that can be used for various things
         // TODO: make popup a standalone-pluggable plugin so it can be replaced with any popup plugin
-        popup        	: $('<div class="'+cls.popup+'"></div>'),
+        popup         : $('<div class="'+cls.popup+'"></div>'),
         //
         autoComplete  : null,
         // used to send request at reasonable intervals
         timeout       : {
-        	getFace    	: null,
-        	autoComplete	: null
+          getFace     : null,
+          autoComplete  : null
         },
         // used to store the last result parameters
-        store        	: {
-        	getFace    	  : {},
-        	autoComplete	: {},
+        store         : {
+          getFace       : {},
+          autoComplete  : {},
           layouts       : {}
         }
-    	};
+      };
 
       com.textField
         .attr({
@@ -194,7 +195,7 @@ $.jPeople = {
         .hide()
         .html( '<img src="images/ajax.gif" alt="Loading content..." />' )
         .appendTo( com.textField.parent() )
-        .load( 'tips.php', {}, function(){
+        .load( opt.tipsFile, {}, function(){
           $(this)
             .find('code')
             .bind('click.addQuery', function(){
@@ -205,7 +206,7 @@ $.jPeople = {
         });
 
 
-    	com.textField.autocomplete({
+      com.textField.autocomplete({
         autofocus : true,
         minLength : opt.minLength,
         delay     : opt.timeout.autoComplete,
@@ -323,7 +324,7 @@ $.jPeople = {
           });
 
         com.popup
-        	.html('<div class="'+cls.popupCWrapper+'">'+
+          .html('<div class="'+cls.popupCWrapper+'">'+
                 '<h1><span>No title...</span><a href="#" class="'+cls.popupTitleClose+'">X</a></h1>'+
                 '<div class="'+cls.popupActions+'">'+
                   '<a href="javascript:void(0)" class="btn btn-email">Mail all</a>'+
@@ -334,65 +335,65 @@ $.jPeople = {
                 '</div>'+
                 '<div class="'+cls.popupContent+'">No content...</div>'+
                 '<div class="'+cls.popupInputs+'">'+
-                	'<input type="button" id="closeMe" value="Close" />'+
+                  '<input type="button" id="closeMe" value="Close" />'+
                 '</div>'+
-            	'</div>')
-        	.data('title', com.popup.find('h1 span'))
+              '</div>')
+          .data('title', com.popup.find('h1 span'))
           .data('actions', com.popup.find('.'+cls.popupActions))
-        	.data('content', com.popup.find('.'+cls.popupContent).eq(0))
-        	.data('closeBtn', com.popup.find('#closeMe').add( com.popup.find('.'+cls.popupTitleClose) ) )
-        	.data('printBtn', com.popup.find('.btn-print') )
-        	.bind('togglePopup', function(e, title, content){
+          .data('content', com.popup.find('.'+cls.popupContent).eq(0))
+          .data('closeBtn', com.popup.find('#closeMe').add( com.popup.find('.'+cls.popupTitleClose) ) )
+          .data('printBtn', com.popup.find('.btn-print') )
+          .bind('togglePopup', function(e, title, content){
             if($(this).data('isVisible')){
                 $(this).fadeOut();
-            	} else {
+              } else {
                 com.popup
-                	.data('title')
-                	.html(title);
+                  .data('title')
+                  .html(title);
                 if(content){
                     com.popup
-                    	.data('content')
-                    	.html(content)
-                    	.css('text-align', 'left');
-                }	else {
+                      .data('content')
+                      .html(content)
+                      .css('text-align', 'left');
+                } else {
                     com.popup
-                    	.data('content')
-                    	.html('<img src="images/ajax.gif" />');
+                      .data('content')
+                      .html('<img src="images/ajax.gif" />');
                 }
                 $(this)
-                	.fadeIn()
-                	.center();
-            	}
-        	})
-        	.data('closeBtn')
-        	.bind('click.closePopup', function(){
+                  .fadeIn()
+                  .center();
+              }
+          })
+          .data('closeBtn')
+          .bind('click.closePopup', function(){
             com.popup.toggle('togglePopup');
-        	});
+          });
 
         com.popup
-        	.data('printBtn')
-        	.bind('click.print', function(){
+          .data('printBtn')
+          .bind('click.print', function(){
             com.popup.data('content').jqprint();
-        	});
+          });
 
         com.popup.data('content').addClass(cls.print);
         $('body').append(com.popup);
 
         com.popup
-        	.data('closeBtn')
-        	.bind('focus', $(this).blur());
+          .data('closeBtn')
+          .bind('focus', $(this).blur());
 
         setupDisplayOptions( com, com.popup.find('.'+cls.popupOptions) );
 
         $(this)
-        	.data('jPeople', true)
-        	.data('jPeople-options', opt)
-        	.data('jProple-classes', cls)
-        	.data('jPeople-components', com);
+          .data('jPeople', true)
+          .data('jPeople-options', opt)
+          .data('jProple-classes', cls)
+          .data('jPeople-components', com);
 
     });
 
-	}
+  }
 
   function setupDisplayOptions( com, container ){
     var fields = [
@@ -459,7 +460,7 @@ $.jPeople = {
 
   }
 
-	function collegeIcon( college ){
+  function collegeIcon( college ){
     college = college.toLowerCase();
     var CI = {
       'mercator'    : '<span class="college-icon mercator">M</span>',
@@ -540,22 +541,22 @@ $.jPeople = {
     }
   }
 
-	function faceTemplate( com, dataObject, template ){
-	  var data = {};
-	  $.extend( data, dataObject );
+  function faceTemplate( com, dataObject, template ){
+    var data = {};
+    $.extend( data, dataObject );
     template = template || 'full';
 
-	  if( data.email ){
-	    data.email = '<a href="mailto:'+data.email+'" title="Email '+data.fname+'">'+data.email+'</a>';
-	  }
+    if( data.email ){
+      data.email = '<a href="mailto:'+data.email+'" title="Email '+data.fname+'">'+data.email+'</a>';
+    }
 
-	  switch( template ){
+    switch( template ){
       case 'table':
         return getFaceTemplate_table( com, data );
       default: case 'full':
         return getFaceTemplate_full( com, data );
     }
-	}
+  }
 
   function getFaceTemplate_table( com, dataObject ){
     var data = {};
@@ -636,21 +637,21 @@ $.jPeople = {
     return template;
   }
 
-	/**
-	 * A Message function. checks to see if firebug is enabled
-	 * @param obj the object to output. If firebut is disable, will only work for: string, int, float
-	 * @param type log, info, err
-	**/
-	function M(obj, type){
+  /**
+   * A Message function. checks to see if firebug is enabled
+   * @param obj the object to output. If firebut is disable, will only work for: string, int, float
+   * @param type log, info, err
+  **/
+  function M(obj, type){
     type = type ? type : "log";
     if(typeof console != 'undefined' && console != null){
-    	switch(type){
-        case "log"	: console.log( obj ); break;
-        case "info"	: console.info( obj ); break;
-        case "warn"	: console.warn( obj ); break;
-        case "err"	: console.err( obj ); break;
-    	}
+      switch(type){
+        case "log"  : console.log( obj ); break;
+        case "info" : console.info( obj ); break;
+        case "warn" : console.warn( obj ); break;
+        case "err"  : console.err( obj ); break;
+      }
     }
-	}
+  }
 
 })(jQuery);
