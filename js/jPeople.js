@@ -271,12 +271,13 @@
         }
       });
 
+/*
       // Override default select method for the autocomplete to prevent the menu from closing
       $(this).data("autocomplete").menu.options.selected = function(event, data) {
         com.textField.focus();
         return false;
       }
-
+*/
 
       com.displayBtn
         .bind('click.togglePopup', function(){
