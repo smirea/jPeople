@@ -265,6 +265,12 @@
         }
       });
 
+      com.textField.bind('keyup.checkForEnter', function (event) {
+        if (event.keyCode == 13) {
+          com.textField.autocomplete('search');
+        }
+      });
+
       // Override default select method for the autocomplete to prevent the menu from closing
       $(this).data("autocomplete").menu.options.selected = function(event, data) {
         com.textField.focus();
