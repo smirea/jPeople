@@ -246,6 +246,9 @@
               action  : 'fullAutoComplete',
               str     : request.term
             }, function( data ){
+              if (typeof data == 'string') {
+                data = JSON.parse(data);
+              }
               com.store.autoComplete.result = data;
               com.displayBtn.find('.numberOfItems').html(data.length);
               response($.map( data.records, function( item ){
