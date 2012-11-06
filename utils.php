@@ -7,11 +7,14 @@
     $time = date('Y.m.d H:i:s');
     $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? 
                       $_SERVER['HTTP_USER_AGENT'] : 'spider';
+    $http_referer = isset($_SERVER['HTTP_REFERER']) ? 
+                          $_SERVER['HTTP_REFERER'] : '';
     $ua = UA::parse($user_agent);
     $record = array(
       'timestamp' => time(),
       'time' => $time,
       'ip' => get_ip_address(),
+      'HTTP_REFERER' => $http_referer,
       'isSpider' => @$ua->isSpider,
       'os' => @$ua->os,
       'osVersion' => @$ua->osVersion,

@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `Tracking` (
   `timestamp` int(11) NOT NULL,
   `time` varchar(32) DEFAULT NULL,
   `ip` varchar(48) NOT NULL,
+  `HTTP_REFERER` varchar(256) NOT NULL,
   `os` varchar(16) NOT NULL,
   `browser` varchar(16) NOT NULL,
   `browser_version` varchar(16) NOT NULL,
