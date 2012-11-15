@@ -23,10 +23,18 @@ require_once "../config.php";
     max-width: 400px;
     padding: 1px 2px;
   }
+  .data-table td a {
+    text-decoration: none;
+    color: #039;
+  }
+  .data-table td a:hover {
+    background: yellow;
+  }
   .data-table td .host {
     display: inline-block;
     margin-right: 2px;
     font-weight: bold;
+    text-decoration: inherit;
     color: #900;
   }
 </style>
@@ -78,8 +86,14 @@ require_once "../config.php";
       $table.append('<tr><th>HTTP_REFERER</th><th>requests</th>');
       $table.insertAfter($charts.addresses);
       for(key in map) {
-        $table.append('<tr><td>'+key.replace(/([^\/]+\/)/,'<b class="host">$1</b>')+
-                          '</td><td>'+map[key]+'</td></tr>'
+        $table.append('<tr>'+
+                        '<td>'+
+                          '<a href="http://'+key+'" target="_blank">'+
+                            key.replace(/([^\/]+\/)/,'<span class="host">$1</span>')+
+                          '</a>'+
+                        '</td>'+
+                        '<td>'+map[key]+'</td>'+
+                      '</tr>'
         );
       }
     });
