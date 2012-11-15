@@ -6,6 +6,30 @@ require_once "../config.php";
 
 ?>
 
+<style>
+  .data-table {
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    background: #fafafa;
+    font-family: "Lucida Grande", Verdana, Arial;
+    font-size: 9pt;
+  }
+  .data-table tr:nth-child(2n) {
+    background-color: rgba(60, 120, 220, 0.5);
+  }
+  .data-table td {
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    max-width: 400px;
+    padding: 1px 2px;
+  }
+  .data-table td .host {
+    display: inline-block;
+    margin-right: 2px;
+    font-weight: bold;
+    color: #900;
+  }
+</style>
 <script src="../js/jquery.js"></script>
 <script type="text/javascript" src="js/highcharts.js"></script>
 <script>
@@ -23,6 +47,8 @@ require_once "../config.php";
       var map = {};
       var link = document.createElement('a');
       var host;
+      var key;
+      var data;
       for (i=0; i<response.length; ++i) {
         if (!response[i].category) {
           host = '(empty)';
@@ -33,12 +59,29 @@ require_once "../config.php";
         map[host] = map[host] || 0;
         map[host] += Number(response[i].value);
       }
-      var data = [];
-      for (var key in map) {
+      data = [];
+      for (key in map) {
         data.push([key, Number(map[key])]);
       }
-      console.log(data);
       category_pie_chart('HTTP_REFERER', $charts.addresses[0], data);
+
+      // create table
+      map = {};
+      for (i=0; i<response.length; ++i) {
+        host = response[i].category.replace(/^\s*(https?:\/\/)?(www\.)?/i, '');
+        host = host.replace(/\?.*$/i, '');
+        host = host || '(empty)';
+        map[host] = map[host] || 0;
+        map[host] += Number(response[i].value);
+      }
+      var $table = jq_element('table').addClass('data-table');
+      $table.append('<tr><th>HTTP_REFERER</th><th>requests</th>');
+      $table.insertAfter($charts.addresses);
+      for(key in map) {
+        $table.append('<tr><td>'+key.replace(/([^\/]+\/)/,'<b class="host">$1</b>')+
+                          '</td><td>'+map[key]+'</td></tr>'
+        );
+      }
     });
 
     $.get('ajax.php', {action: 'days-and-hours'}, function (response) {
