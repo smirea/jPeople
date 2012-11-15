@@ -21,6 +21,14 @@
       );
       sqlToJsonOutput($query);
       break;
+    case 'addresses':
+      $query = mysql_query("SELECT DISTINCT HTTP_REFERER as category,
+                                            count(*) AS value
+                            FROM Tracking GROUP BY category
+                            ORDER BY value DESC"
+      );
+      sqlToJsonOutput($query);
+      break;
     case 'days-and-hours':
       $query = mysql_query("SELECT time FROM Tracking");
       $data = sqlToArray($query);

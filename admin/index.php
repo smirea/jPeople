@@ -11,10 +11,35 @@ require_once "../config.php";
 <script>
   var $charts = {};
   $(function _on_window_loaded () {
-    make_default_chart_containers($('body'), ['browsers', 'OS', 'days', 'hours']);
+    make_default_chart_containers($('body'), [
+      'browsers', 'OS', 'addresses', 'days', 'hours'
+    ]);
 
     update_category_pie_chart ('browsers', 'Browser Ratio', $charts.browsers[0]);
     update_category_pie_chart ('OS', 'OS Ratio', $charts.OS[0], 0.001);
+
+    $.get('ajax.php', {action: 'addresses'}, function (response) {
+      var i;
+      var map = {};
+      var link = document.createElement('a');
+      var host;
+      for (i=0; i<response.length; ++i) {
+        if (!response[i].category) {
+          host = '(empty)';
+        } else {
+          link.href = response[i].category;
+          host = link.hostname.replace(/^www\./i, '');
+        }
+        map[host] = map[host] || 0;
+        map[host] += Number(response[i].value);
+      }
+      var data = [];
+      for (var key in map) {
+        data.push([key, Number(map[key])]);
+      }
+      console.log(data);
+      category_pie_chart('HTTP_REFERER', $charts.addresses[0], data);
+    });
 
     $.get('ajax.php', {action: 'days-and-hours'}, function (response) {
       category_line_chart('Daily activity', $charts.days[0], response.days);
